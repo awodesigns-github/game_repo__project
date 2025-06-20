@@ -39,7 +39,8 @@ const GamesFilter = ({title}: GamesFilterProps) => {
                         value={selectValue}
                         onChange={(e) => setSelectValue(e.target.value)}
                     >
-                        <option value={''}>All categories</option>
+                        { error && <option disabled={true}>{error}</option> }
+                        {!error && <option value={''}>All categories</option>}
                         {
                             platformsList.map(platform => (
                                 <option
