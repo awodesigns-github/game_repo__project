@@ -6,41 +6,14 @@ import {
     VStack
 } from "@chakra-ui/react";
 import GameCard from "@/components/GameCard.tsx";
-import gamesService, {type Game} from "@/services/gamesService.ts";
-import {type ApiResponse, CanceledError} from "@/services/apiClient.ts";
-import {useEffect, useState} from "react";
-import type {AxiosError} from "axios";
+import useGames from "@/components/hooks/useGames.ts";
 
 interface GamesGridProps {
     genre: string;
 }
 
 const GamesGrid = ({ genre }: GamesGridProps) => {
-    const [games, setGames] = useState<Game[]>();
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        setGames(undefined);
-        setError('');
-        setIsLoading(true);
-
-        const { request, cancel } = gamesService.getAllByGenre<ApiResponse<Game>>(genre);
-
-        request
-            .then(res => {
-                setGames(res.data.results);
-                setIsLoading(false);
-            })
-            .catch((err: AxiosError) => {
-                if (err instanceof CanceledError)
-                    return;
-                setError(err.message);
-                setIsLoading(false);
-            })
-
-        return (() => cancel());
-    }, [genre])
+    const { games, error, isLoading } = useGames(genre);
 
     return (
         <>
