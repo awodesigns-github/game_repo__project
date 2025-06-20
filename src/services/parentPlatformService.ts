@@ -1,6 +1,6 @@
 import createInstance from "@/services/httpService.ts";
 
-interface Platform {
+export interface Platform {
     id: number;
     name: string;
     slug: string;

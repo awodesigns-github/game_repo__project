@@ -10,10 +10,13 @@ import useGames from "@/components/hooks/useGames.ts";
 
 interface GamesGridProps {
     genre: string;
+    selectValue: string;
 }
 
-const GamesGrid = ({ genre }: GamesGridProps) => {
+const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
     const { games, error, isLoading } = useGames(genre);
+
+    // TODO: Implement a games filter based on the parent platforms in that particular game
 
     return (
         <>

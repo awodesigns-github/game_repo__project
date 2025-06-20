@@ -1,13 +1,15 @@
 import {Box, Heading, NativeSelect} from "@chakra-ui/react";
-import useParentPlatforms from "@/components/hooks/useParentPlatforms.ts";
+import type {ParentPlatform} from "@/services/parentPlatformService.ts";
 
 interface GamesFilterProps {
     title: string;
+    platformsList: ParentPlatform[];
+    error: string;
+    selectValue: string;
+    onSelectValue: (value: string) => void
 }
 
-const GamesFilter = ({title}: GamesFilterProps) => {
-    const { platformsList, error, selectValue, setSelectValue } = useParentPlatforms();
-
+const GamesFilter = ({title, platformsList, error, selectValue, onSelectValue}: GamesFilterProps) => {
     return (
         <>
             <Heading size={'5xl'}>{title} Games</Heading>
@@ -18,7 +20,7 @@ const GamesFilter = ({title}: GamesFilterProps) => {
                 >
                     <NativeSelect.Field
                         value={selectValue}
-                        onChange={(e) => setSelectValue(e.target.value)}
+                        onChange={(e) => onSelectValue(e.target.value) }
                     >
                         { error && <option disabled={true}>{error}</option> }
                         {!error && <option value={''}>All categories</option>}
