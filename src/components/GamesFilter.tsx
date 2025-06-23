@@ -1,53 +1,42 @@
-import {Box, createListCollection, Heading, Portal, Select, SelectItemIndicator} from "@chakra-ui/react";
+import {Box, Heading, NativeSelect} from "@chakra-ui/react";
+import type {ParentPlatform} from "@/services/parentPlatformService.ts";
 
 interface GamesFilterProps {
     title: string;
+    platformsList: ParentPlatform[];
+    error: string;
+    selectValue: string;
+    onSelectValue: (value: string) => void
 }
 
-const testList = createListCollection({
-    items: [
-        { label: 'Xbox', value: 'xbox' },
-        { label: 'Playstation', value: 'play-station' },
-        { label: 'PC', value: 'pc' },
-        { label: 'MacOs', value: 'mac-os' },
-    ]
-})
-
-const GamesFilter = ({title}: GamesFilterProps) => {
+const GamesFilter = ({title, platformsList, error, selectValue, onSelectValue}: GamesFilterProps) => {
     return (
         <>
             <Heading size={'5xl'}>{title} Games</Heading>
             <Box my={5}>
-                <Select.Root
-                    collection={testList}
-                    size={'sm'}
-                    width={'320px'}
+                <NativeSelect.Root
+                    width={'sm'}
+                    variant={'subtle'}
                 >
-                    <Select.HiddenSelect />
-                    <Select.Control>
-                        <Select.Trigger>
-                            <Select.ValueText placeholder={'All Categories'} />
-                        </Select.Trigger>
-                        <Select.IndicatorGroup>
-                            <Select.ClearTrigger />
-                            <Select.Indicator />
-                        </Select.IndicatorGroup>
-                    </Select.Control>
-                    <Portal>
-                        <Select.Positioner>
-                            <Select.Content>
-                                {
-                                    testList.items.map((test) => (
-                                        <Select.Item key={test.label} item={test.value}>
-                                            {test.label}
-                                            <SelectItemIndicator />
-                                        </Select.Item>
-                                    ))
-                                }
-                            </Select.Content>
-                        </Select.Positioner>
-                    </Portal>
-                </Select.Root>
+                    <NativeSelect.Field
+                        value={selectValue}
+                        onChange={(e) => onSelectValue(e.target.value) }
+                    >
+                        { error && <option disabled={true}>{error}</option> }
+                        {!error && <option value={''}>All categories</option>}
+                        {
+                            platformsList.map(platform => (
+                                <option
+                                    key={platform.id}
+                                    value={platform.slug}
+                                >
+                                    {platform.name}
+                                </option>
+                            ))
+                        }
+                    </NativeSelect.Field>
+                    <NativeSelect.Indicator />
+                </NativeSelect.Root>
             </Box>
         </>
     )
