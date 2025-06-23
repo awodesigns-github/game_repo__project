@@ -7,6 +7,8 @@ import {
 } from "@chakra-ui/react";
 import GameCard from "@/components/GameCard.tsx";
 import useGames from "@/components/hooks/useGames.ts";
+import type {Game} from "@/services/gamesService.ts";
+
 
 interface GamesGridProps {
     genre: string;
@@ -17,6 +19,24 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
     const { games, error, isLoading } = useGames(genre);
 
     // TODO: Implement a games filter based on the parent platforms in that particular game
+
+    const filteredList = () => {
+        const filteredArr: Game[] = [];
+
+        if (selectValue) {
+            games?.forEach(game => {
+                game.parent_platforms.map(pPlatform => {
+                    if (pPlatform.platform.slug === selectValue)
+                        filteredArr.push(game);
+                })
+            });
+
+            return filteredArr;
+        }
+
+        return games;
+    }
+
 
     return (
         <>
@@ -42,7 +62,7 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
                         my={4}
                     >
                         {
-                            games?.map((game) => (
+                            filteredList()?.map((game) => (
                                 <GameCard game={game} key={game.id}></GameCard>
                             ))
                         }

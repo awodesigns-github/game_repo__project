@@ -15,8 +15,6 @@ const MainContent = () => {
         setTitle(genreTitle);
     }
 
-    console.log(selectValue);
-
     return (
         <Grid
             templateColumns={'repeat(4, 1fr)'}

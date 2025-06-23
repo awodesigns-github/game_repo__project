@@ -7,6 +7,7 @@ const App = () => {
 
     return (
         <Provider>
+            {  }
             <Container
                 width={'100vw'}
                 py={5}
