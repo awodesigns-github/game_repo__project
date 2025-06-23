@@ -6,41 +6,37 @@ import {
     VStack
 } from "@chakra-ui/react";
 import GameCard from "@/components/GameCard.tsx";
-import gamesService, {type Game} from "@/services/gamesService.ts";
-import {type ApiResponse, CanceledError} from "@/services/apiClient.ts";
-import {useEffect, useState} from "react";
-import type {AxiosError} from "axios";
+import useGames from "@/components/hooks/useGames.ts";
+import type {Game} from "@/services/gamesService.ts";
+
 
 interface GamesGridProps {
     genre: string;
+    selectValue: string;
 }
 
-const GamesGrid = ({ genre }: GamesGridProps) => {
-    const [games, setGames] = useState<Game[]>();
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
+    const { games, error, isLoading } = useGames(genre);
 
-    useEffect(() => {
-        setGames(undefined);
-        setError('');
-        setIsLoading(true);
+    // TODO: Implement a games filter based on the parent platforms in that particular game
 
-        const { request, cancel } = gamesService.getAllByGenre<ApiResponse<Game>>(genre);
+    const filteredList = () => {
+        const filteredArr: Game[] = [];
 
-        request
-            .then(res => {
-                setGames(res.data.results);
-                setIsLoading(false);
-            })
-            .catch((err: AxiosError) => {
-                if (err instanceof CanceledError)
-                    return;
-                setError(err.message);
-                setIsLoading(false);
-            })
+        if (selectValue) {
+            games?.forEach(game => {
+                game.parent_platforms.map(pPlatform => {
+                    if (pPlatform.platform.slug === selectValue)
+                        filteredArr.push(game);
+                })
+            });
 
-        return (() => cancel());
-    }, [genre])
+            return filteredArr;
+        }
+
+        return games;
+    }
+
 
     return (
         <>
@@ -66,7 +62,7 @@ const GamesGrid = ({ genre }: GamesGridProps) => {
                         my={4}
                     >
                         {
-                            games?.map((game) => (
+                            filteredList()?.map((game) => (
                                 <GameCard game={game} key={game.id}></GameCard>
                             ))
                         }

@@ -7,8 +7,6 @@ const NavBar = () => {
     const { toggleColorMode, colorMode, setColorMode } = useColorMode();
     const placeholderColor = useColorModeValue('cyan.600', 'cyan.500');
 
-    console.log(colorMode);
-
     const handleColorModeChange = () => {
         setColorMode(colorMode === 'dark' ? 'dark' : 'light');
         toggleColorMode();

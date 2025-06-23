@@ -1,13 +1,6 @@
 import createInstance from "@/services/httpService.ts";
 import type {Genre} from "@/services/genreService.ts";
 
-interface Platforms {
-    platform: {
-        id: number;
-        name: string;
-        slug: string;
-    }
-}
 
 export interface Game {
     id: number;
@@ -17,7 +10,13 @@ export interface Game {
     suggestions_count: string;
     metacritic: number;
     genres: Genre[];
-    parent_platforms: Platforms[];
+    parent_platforms: {
+        platform: {
+            id: number;
+            name: string;
+            slug: string
+        }
+    }[];
     rating: number;
     rating_top: number;
     released: string;
