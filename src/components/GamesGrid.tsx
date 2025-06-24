@@ -57,7 +57,11 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
                     </Box>
                     :
                     <SimpleGrid
-                        columns={3}
+                        columns={{
+                            sm: 1,
+                            md: 2,
+                            lg: 3
+                        }}
                         gap={4}
                         my={4}
                     >

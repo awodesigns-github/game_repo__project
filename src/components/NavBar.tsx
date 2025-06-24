@@ -1,6 +1,7 @@
 import {Avatar, Flex, Input, InputGroup, Switch, Text} from "@chakra-ui/react";
 import {LuSearch} from "react-icons/lu";
 import {useColorMode, useColorModeValue} from "@/components/ui/color-mode.tsx";
+import reactLogo from '../assets/react.svg';
 
 
 const NavBar = () => {
@@ -23,7 +24,7 @@ const NavBar = () => {
                     p={2}
                 >
                     <Avatar.Fallback name={'Game Hub'} />
-                    <Avatar.Image src={'src/assets/react.svg'} />
+                    <Avatar.Image src={reactLogo} />
                 </Avatar.Root>
                 <InputGroup
                     startElement={ <LuSearch /> }
