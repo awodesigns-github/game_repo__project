@@ -12,11 +12,11 @@ interface GamesFilterProps {
 const GamesFilter = ({title, platformsList, error, selectValue, onSelectValue}: GamesFilterProps) => {
     return (
         <>
-            <Heading size={'5xl'}>{title} Games</Heading>
+            <Heading size={{ base: '3xl', md: '4xl', lg: '5xl' }}>{title} Games</Heading>
             <Box my={5}>
                 <NativeSelect.Root
-                    width={'sm'}
                     variant={'subtle'}
+                    width={{ md: 'sm' }}
                 >
                     <NativeSelect.Field
                         value={selectValue}

@@ -40,7 +40,11 @@ const GameCard = ({ game }: GameCardProps) => {
     return (
         <Box
             position={'relative'}
-            height={'sm'}
+            height={{
+                base: 'auto',
+                lg: 'sm'
+            }}
+            width={'100%'}
         >
             <Card.Root
                 maxW='sm'
@@ -94,54 +98,60 @@ const GameCard = ({ game }: GameCardProps) => {
                             {game.suggestions_count}
                         </Badge>
                     </HStack>
-                    {
-                        hovered &&
-                        <DataList.Root orientation="horizontal" divideY={'1px'} maxW={'full'}>
-                            <DataList.Item pt={4}>
-                                <DataList.ItemLabel>Release Date:</DataList.ItemLabel>
-                                <DataList.ItemValue>{stringToDate(game.released)}</DataList.ItemValue>
-                            </DataList.Item>
-                            <DataList.Item pt={4}>
-                                {game.genres.length > 1 ? <DataList.ItemLabel>Genres:</DataList.ItemLabel> : <DataList.ItemLabel>Genre:</DataList.ItemLabel>}
-                                <Wrap>
-                                    {
-                                        game.genres.map(genre => (
-                                            <DataListItem key={genre.id}>
-                                                {genre.name}
-                                            </DataListItem>
-                                        ))
-                                    }
-                                </Wrap>
-                            </DataList.Item>
-                            <DataList.Item pt={4}>
-                                <DataList.ItemLabel>Rating:</DataList.ItemLabel>
-                                <DataList.ItemValue>{game.rating} / {game.rating_top}</DataList.ItemValue>
-                            </DataList.Item>
-                        </DataList.Root>
-                    }
+                    <DataList.Root
+                        orientation="vertical"
+                        divideY={'1px'}
+                        display={{
+                            base: 'block',
+                            lg: hovered ? 'block' : 'none'
+                        }}
+                    >
+                        <DataList.Item pt={4}>
+                            <DataList.ItemLabel>Release Date:</DataList.ItemLabel>
+                            <DataList.ItemValue>{stringToDate(game.released)}</DataList.ItemValue>
+                        </DataList.Item>
+                        <DataList.Item pt={4}>
+                            {game.genres.length > 1 ? <DataList.ItemLabel>Genres:</DataList.ItemLabel> : <DataList.ItemLabel>Genre:</DataList.ItemLabel>}
+                            <Wrap>
+                                {
+                                    game.genres.map(genre => (
+                                        <DataListItem key={genre.id}>
+                                            {genre.name}
+                                        </DataListItem>
+                                    ))
+                                }
+                            </Wrap>
+                        </DataList.Item>
+                        <DataList.Item pt={4}>
+                            <DataList.ItemLabel>Rating:</DataList.ItemLabel>
+                            <DataList.ItemValue>{game.rating} / {game.rating_top}</DataList.ItemValue>
+                        </DataList.Item>
+                    </DataList.Root>
                 </Card.Body>
-                {
-                    hovered &&
-                    <>
-                        <Card.Footer>
-                            <VStack width={'full'}>
-                                <Button
-                                    width={'full'}
-                                    variant={'solid'}
-                                    _hover={{
-                                        background: 'darkcyan',
-                                        color: 'whitesmoke',
-                                        fontWeight: 'semibold'
-                                    }}
-                                >
-                                    <MdAddShoppingCart></MdAddShoppingCart>
-                                    Add to cart
-                                </Button>
-                                <Button width={'full'} variant={'outline'}>Add to wishlist</Button>
-                            </VStack>
-                        </Card.Footer>
-                    </>
-                }
+                <Card.Footer
+                    display={{
+                        base: 'block',
+                        lg: hovered ? 'block' : 'none'
+                    }}>
+                    <VStack
+                        width={'full'}
+                        mt={{ base: 4, lg: 'none' }}
+                    >
+                        <Button
+                            width={'full'}
+                            variant={'solid'}
+                            _hover={{
+                                background: 'darkcyan',
+                                color: 'whitesmoke',
+                                fontWeight: 'semibold'
+                            }}
+                        >
+                            <MdAddShoppingCart></MdAddShoppingCart>
+                            Add to cart
+                        </Button>
+                        <Button width={'full'} variant={'outline'}>Add to wishlist</Button>
+                    </VStack>
+                </Card.Footer>
             </Card.Root>
         </Box>
     )

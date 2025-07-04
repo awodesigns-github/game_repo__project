@@ -14,46 +14,51 @@ const NavBar = () => {
     }
 
     return (
-        <>
-            <Flex gap={4}>
-                <Avatar.Root
-                    shape={'rounded'}
-                    variant={'subtle'}
-                    size={'full'}
-                    width={'3rem'}
-                    p={2}
-                >
-                    <Avatar.Fallback name={'Game Hub'} />
-                    <Avatar.Image src={reactLogo} />
-                </Avatar.Root>
-                <InputGroup
-                    startElement={ <LuSearch /> }
-                >
-                    <Input
-                        size={'lg'}
-                        color={placeholderColor}
-                        borderRadius={'full'}
-                        placeholder={'Search for games...'}
-                        _placeholder={{
-                            color: 'inherit'
-                        }}
-                        variant={'subtle'}
-                    />
-                </InputGroup>
-                <Switch.Root
-                    colorPalette={'cyan'}
+        <Flex
+            justifyContent={'space-between'}
+        >
+            <Avatar.Root
+                shape={'rounded'}
+                variant={'subtle'}
+                size={'full'}
+                width={'3rem'}
+                p={2}
+            >
+                <Avatar.Fallback name={'Game Hub'} />
+                <Avatar.Image src={reactLogo} />
+            </Avatar.Root>
+            <InputGroup
+                maxW={'65%'}
+                hideBelow={'sm'}
+                startElement={ <LuSearch /> }
+            >
+                <Input
                     size={'lg'}
-                    onCheckedChange={() => handleColorModeChange()}
-                    checked={colorMode === 'dark'}
-                >
-                    <Switch.HiddenInput />
-                    <Switch.Control />
-                    <Switch.Label>
-                        <Text textWrap={'nowrap'}>{colorMode} mode</Text>
-                    </Switch.Label>
-                </Switch.Root>
-            </Flex>
-        </>
+                    color={placeholderColor}
+                    borderRadius={'full'}
+                    placeholder={'Search for games...'}
+                    _placeholder={{
+                        color: 'inherit'
+                    }}
+                    variant={'subtle'}
+                />
+            </InputGroup>
+            <Switch.Root
+                colorPalette={'cyan'}
+                size={'lg'}
+                onCheckedChange={() => handleColorModeChange()}
+                checked={colorMode === 'dark'}
+            >
+                <Switch.HiddenInput />
+                <Switch.Control />
+                <Switch.Label>
+                    <Text
+                        hideBelow={'sm'}
+                        textWrap={'nowrap'}
+                    >{colorMode} mode</Text>
+                </Switch.Label>
+            </Switch.Root>
+        </Flex>
     )
 }
 
