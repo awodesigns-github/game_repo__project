@@ -1,6 +1,15 @@
 import {Provider} from "./components/ui/provider.tsx";
 import NavBar from "./components/NavBar.tsx";
-import {Box, Container, Grid, GridItem, IconButton} from "@chakra-ui/react";
+import {
+    Box,
+    CloseButton,
+    Container,
+    Drawer,
+    Grid,
+    GridItem,
+    IconButton,
+    useDisclosure
+} from "@chakra-ui/react";
 import {useState} from "react";
 import useParentPlatforms from "@/components/hooks/useParentPlatforms.ts";
 import GenresList from "@/components/GenresList.tsx";
@@ -12,6 +21,7 @@ const App = () => {
     const [activeLink, setActiveLink] = useState('action');
     const [title, setTitle] = useState('Action');
     const { platformsList, error, selectValue, setSelectValue } = useParentPlatforms();
+    const { onOpen, onClose, open } = useDisclosure();
 
     const handleGenreClick = (genreSlug: string, genreTitle: string) => {
         setActiveLink(genreSlug);
@@ -60,6 +70,7 @@ const App = () => {
                             mt={4}
                             position={'fixed'}
                             zIndex={'sticky'}
+                            onClick={onOpen}
                         >
                             <FaHamburger />
                         </IconButton>
@@ -92,6 +103,26 @@ const App = () => {
                             onGenreClick={handleGenreClick}
                         />
                     </GridItem>
+
+                    <Drawer.Root open={open} placement={'start'} onFocusOutside={() => console.log('Focused outside')}>
+                        <Drawer.Backdrop />
+                        <Drawer.Positioner>
+                            <Drawer.Content>
+                                <Drawer.Header>
+                                    <Drawer.Title>Genres</Drawer.Title>
+                                </Drawer.Header>
+                                <Drawer.Body>
+                                    <GenresList
+                                        activeLink={activeLink}
+                                        onGenreClick={handleGenreClick}
+                                    />
+                                </Drawer.Body>
+                                <Drawer.CloseTrigger asChild>
+                                    <CloseButton onClick={onClose}/>
+                                </Drawer.CloseTrigger>
+                            </Drawer.Content>
+                        </Drawer.Positioner>
+                    </Drawer.Root>
                 </Grid>
             </Container>
         </Provider>

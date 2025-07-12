@@ -1,36 +1,19 @@
-import {useEffect, useState} from "react";
 import gamesService, {type Game} from "@/services/gamesService.ts";
-import {type ApiResponse, CanceledError} from "@/services/apiClient.ts";
-import type {AxiosError} from "axios";
+import {type ApiResponse} from "@/services/apiClient.ts";
+import {useQuery} from "@tanstack/react-query";
 
 const useGames = (genre: string) => {
-    const [games, setGames] = useState<Game[]>();
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const { request } = gamesService.getAllByGenre<ApiResponse<Game>>(genre);
 
-    useEffect(() => {
-        setGames(undefined);
-        setError('');
-        setIsLoading(true);
+    const fetchGames = async () => {
+        return request
+            .then(res => res.data)
+    }
 
-        const { request, cancel } = gamesService.getAllByGenre<ApiResponse<Game>>(genre);
-
-        request
-            .then(res => {
-                setGames(res.data.results);
-                setIsLoading(false);
-            })
-            .catch((err: AxiosError) => {
-                if (err instanceof CanceledError)
-                    return;
-                setError(err.message);
-                setIsLoading(false);
-            })
-
-        return (() => cancel());
-    }, [genre])
-
-    return { games, setGames, error, setError, isLoading, setIsLoading }
+    return useQuery<ApiResponse<Game>, Error>({
+        queryKey: ['games', genre],
+        queryFn: fetchGames
+    });
 }
 
 export default useGames;

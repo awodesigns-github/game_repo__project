@@ -53,18 +53,23 @@ const GameCard = ({ game }: GameCardProps) => {
                 onMouseLeave={handleMouseLeave}
                 willChange='transform'
                 _hover={{
-                    height: 'min-content',
-                    zIndex: 10,
-                    transition: 'transform 0.2s ease-in-out',
-                    transform: 'perspective(1000px) translateZ(80px)',
-                    boxShadow: '2xl'
+                    base: {
+                        height: 'min-content',
+                        zIndex: 10,
+                        transition: 'transform 0.2s ease-in-out',
+                        transform: 'perspective(1000px) translateZ(80px)',
+                        boxShadow: '2xl'
+                    },
                 }}
             >
                 <Skeleton height={'min-content'} loading={!imageIsLoaded}>
                     <Image
                         src={game.background_image}
                         alt={game.name}
+                        height={'200px'}
+                        width={'100%'}
                         loading={'lazy'}
+                        fit={'cover'}
                         onLoad={() => setIsImageIsLoaded(true)}
                     />
                 </Skeleton>
