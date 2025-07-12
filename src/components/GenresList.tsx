@@ -1,6 +1,7 @@
-import {Avatar, For, Heading, HStack, LinkBox, Stack, Text} from "@chakra-ui/react";
+import {Avatar, Box, For, HStack, LinkBox, Spinner, Stack, Text, VStack} from "@chakra-ui/react";
 import {useColorModeValue} from "@/components/ui/color-mode.tsx";
 import useGenres from "@/components/hooks/useGenres.ts";
+import {LuBox} from "react-icons/lu";
 
 interface GenresListProps {
     onGenreClick: (genreSlug: string, genreTitle: string) => void;
@@ -9,22 +10,33 @@ interface GenresListProps {
 
 const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
     const textColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
-    const { genres, error } = useGenres();
+    const { data: genres, error, isLoading } = useGenres();
 
     return (
         <>
-            <Heading
-                size={'4xl'}
-                mt={3}
-                mb={5}
-            >
-                Genres
-            </Heading>
-
-            { error && <h2 color={'red'}>{error}</h2> }
-
+            { isLoading &&
+                <Box
+                    height={'100vh'}
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                >
+                    <VStack>
+                        <Spinner size={'lg'} color={'darkcyan'} />
+                        <Text>Loading genres...</Text>
+                    </VStack>
+                </Box>
+            }
+            { error && <h2 color={'red'}>{error.message}</h2> }
             <Stack>
-                <For each={genres}>
+                <For each={genres?.results}
+                     fallback={
+                         <VStack textAlign="center" fontWeight="medium">
+                             <LuBox />
+                             No items to show
+                         </VStack>
+                     }
+                >
                     {
                         (genre) => (
                             <LinkBox

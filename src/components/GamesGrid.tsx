@@ -16,15 +16,13 @@ interface GamesGridProps {
 }
 
 const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
-    const { games, error, isLoading } = useGames(genre);
-
-    // TODO: Implement a games filter based on the parent platforms in that particular game
+    const { data: games, error, isLoading } = useGames(genre);
 
     const filteredList = () => {
         const filteredArr: Game[] = [];
 
         if (selectValue) {
-            games?.forEach(game => {
+            games?.results.forEach(game => {
                 game.parent_platforms.map(pPlatform => {
                     if (pPlatform.platform.slug === selectValue)
                         filteredArr.push(game);
@@ -33,14 +31,13 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
 
             return filteredArr;
         }
-
-        return games;
+        return games?.results;
     }
 
 
     return (
         <>
-            { error && <Text>{error}</Text> }
+            { error && <Text>{error.message}</Text> }
             {
                 isLoading || (games === undefined && !error) ?
                     <Box
@@ -67,7 +64,7 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
                     >
                         {
                             filteredList()?.map((game) => (
-                                <GameCard game={game} key={game.id}></GameCard>
+                                <GameCard game={game} key={game.id} />
                             ))
                         }
                     </SimpleGrid>
