@@ -2,7 +2,8 @@ import axios from "axios";
 
 
 export interface ApiResponse<T> {
-    results: T[]
+    count: number;
+    results: T[];
 }
 
 export default axios.create({
