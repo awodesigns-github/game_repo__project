@@ -34,6 +34,12 @@ const App = () => {
         setSearchParam(searchParam);
     }
 
+    // @ts-ignore
+    const handleDrawerToggle = (isOpen: OpenChangeDetails) => {
+        if (!isOpen) onOpen();
+        else onClose();
+    }
+
     return (
         <Provider>
             <Container
@@ -110,8 +116,8 @@ const App = () => {
                         />
                     </GridItem>
 
-                    <Drawer.Root open={open} placement={'start'} onFocusOutside={() => console.log('Focused outside')}>
-                        <Drawer.Backdrop />
+                    <Drawer.Root open={open} placement={'start'} onOpenChange={handleDrawerToggle}>
+                        <Drawer.Backdrop/>
                         <Drawer.Positioner>
                             <Drawer.Content>
                                 <Drawer.Header>
