@@ -151,10 +151,12 @@ const GameCard = ({ game }: GameCardProps) => {
                                 fontWeight: 'semibold'
                             }}
                         >
-                            <MdAddShoppingCart></MdAddShoppingCart>
-                            Add to cart
+                            See more details
                         </Button>
-                        <Button width={'full'} variant={'outline'}>Add to wishlist</Button>
+                        <Button width={'full'} variant={'outline'}>
+                            <MdAddShoppingCart></MdAddShoppingCart>
+                            Add to Cart
+                        </Button>
                     </VStack>
                 </Card.Footer>
             </Card.Root>

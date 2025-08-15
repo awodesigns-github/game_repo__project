@@ -22,10 +22,16 @@ const App = () => {
     const [title, setTitle] = useState('Action');
     const { platformsList, error, selectValue, setSelectValue } = useParentPlatforms();
     const { onOpen, onClose, open } = useDisclosure();
+    const [searchParam, setSearchParam] = useState("");
 
+    // TODO: A Good place for useReducer
     const handleGenreClick = (genreSlug: string, genreTitle: string) => {
         setActiveLink(genreSlug);
         setTitle(genreTitle);
+    }
+
+    const handleSearchBarChange = (searchParam: string) => {
+        setSearchParam(searchParam);
     }
 
     return (
@@ -63,7 +69,7 @@ const App = () => {
                         area={'nav'}
                         mb={{ base: 8, md: 4 }}
                     >
-                        <NavBar/>
+                        <NavBar searchValue={searchParam} onChangeSearchBar={handleSearchBarChange}/>
                         <IconButton
                             variant={'surface'}
                             display={{ base: 'flex', md: 'none' }}
@@ -90,7 +96,7 @@ const App = () => {
                                 onSelectValue={(value) => setSelectValue(value)}
                             />
                         </Box>
-                        <GamesGrid genre={activeLink} selectValue={selectValue}></GamesGrid>
+                        <GamesGrid genre={activeLink} selectValue={selectValue} searchParam={searchParam} />
                     </GridItem>
 
                     {/* SIDEBAR */}
