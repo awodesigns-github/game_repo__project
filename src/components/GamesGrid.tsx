@@ -8,7 +8,6 @@ import {
 import GameCard from "@/components/GameCard.tsx";
 import useGames from "@/components/hooks/useGames.ts";
 import type {Game} from "@/services/gamesService.ts";
-import SearchResults from "@/components/SearchResults.tsx";
 
 
 interface GamesGridProps {
@@ -39,7 +38,8 @@ const GamesGrid = ({ genre, selectValue, searchParam }: GamesGridProps) => {
 
     const finalList = () => {
         if (searchParam) {
-            return filteredList()?.filter(game => game.slug.includes(searchParam))
+            const formattedSearchParam = searchParam?.toLowerCase().replace(" ", "-");
+            return filteredList()?.filter(game => game.slug.includes(formattedSearchParam));
         }
 
         return filteredList();
@@ -64,30 +64,21 @@ const GamesGrid = ({ genre, selectValue, searchParam }: GamesGridProps) => {
                         </VStack>
                     </Box>
                     :
-                    searchParam ?
-                    <VStack>
+                    <SimpleGrid
+                        columns={{
+                            base: 1,
+                            sm: 2,
+                            lg: 3
+                        }}
+                        gap={4}
+                        my={4}
+                    >
                         {
                             finalList()?.map((game) => (
-                                <SearchResults game={game} key={game.id}></SearchResults>
+                                <GameCard game={game} key={game.id} />
                             ))
                         }
-                    </VStack>
-                    :
-                        <SimpleGrid
-                            columns={{
-                                base: 1,
-                                sm: 2,
-                                lg: 3
-                            }}
-                            gap={4}
-                            my={4}
-                        >
-                            {
-                                finalList()?.map((game) => (
-                                    <GameCard game={game} key={game.id} />
-                                ))
-                            }
-                        </SimpleGrid>
+                    </SimpleGrid>
             }
         </>
     )
