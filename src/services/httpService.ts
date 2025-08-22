@@ -1,8 +1,9 @@
 import apiClient from "@/services/apiClient.ts";
+const apiKey: string = import.meta.env.VITE_RAWG_API_KEY;
 
 class HttpService {
     public endpoint: string
-    apiKey = '1ab02428d22e407fb7d16e32a0cb13b5';
+    apiKey = apiKey;
 
     constructor(endpoint: string) {
         this.endpoint = endpoint;

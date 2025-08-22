@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const baseUrl: string = import.meta.env.VITE_BASE_URL;
 
 export interface ApiResponse<T> {
     count: number;
@@ -7,7 +7,7 @@ export interface ApiResponse<T> {
 }
 
 export default axios.create({
-    baseURL: 'https://api.rawg.io/api'
+    baseURL: baseUrl
 })
 
 export { AxiosError, CanceledError } from 'axios';
