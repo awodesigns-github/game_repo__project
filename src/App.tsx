@@ -34,11 +34,6 @@ const App = () => {
         setSearchParam(searchParam);
     }
 
-    // @ts-ignore
-    const handleDrawerToggle = (isOpen: OpenChangeDetails) => {
-        if (!isOpen) onOpen();
-        else onClose();
-    }
 
     return (
         <Provider>
@@ -117,7 +112,10 @@ const App = () => {
                     </GridItem>
 
 
-                    <Drawer.Root open={open} placement={'start'} onOpenChange={handleDrawerToggle}>
+                    <Drawer.Root open={open} placement={'start'} onOpenChange={(isOpen) => {
+                        if (!isOpen) onOpen();
+                        else onClose();
+                    }}>
                         <Drawer.Backdrop/>
                         <Drawer.Positioner>
                             <Drawer.Content>
