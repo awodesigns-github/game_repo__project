@@ -12,7 +12,7 @@ interface GamesFilterProps {
 const GamesFilter = ({title, platformsList, error, selectValue, onSelectValue}: GamesFilterProps) => {
     return (
         <>
-            <Heading size={{ base: '3xl', md: '4xl', lg: '5xl' }}>{title} Games</Heading>
+            <Heading size={{ base: '3xl', md: '4xl', lg: '5xl' }}>{`${selectValue} ${title}`} Games</Heading>
             <Box my={5}>
                 <NativeSelect.Root
                     variant={'subtle'}

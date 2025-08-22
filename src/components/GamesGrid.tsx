@@ -13,9 +13,10 @@ import type {Game} from "@/services/gamesService.ts";
 interface GamesGridProps {
     genre: string;
     selectValue: string;
+    searchParam?: string;
 }
 
-const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
+const GamesGrid = ({ genre, selectValue, searchParam }: GamesGridProps) => {
     const { data: games, error, isLoading } = useGames(genre);
 
     const filteredList = () => {
@@ -31,7 +32,17 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
 
             return filteredArr;
         }
+
         return games?.results;
+    }
+
+    const finalList = () => {
+        if (searchParam) {
+            const formattedSearchParam = searchParam?.toLowerCase().replace(" ", "-");
+            return filteredList()?.filter(game => game.slug.includes(formattedSearchParam));
+        }
+
+        return filteredList();
     }
 
 
@@ -63,7 +74,7 @@ const GamesGrid = ({ genre, selectValue }: GamesGridProps) => {
                         my={4}
                     >
                         {
-                            filteredList()?.map((game) => (
+                            finalList()?.map((game) => (
                                 <GameCard game={game} key={game.id} />
                             ))
                         }

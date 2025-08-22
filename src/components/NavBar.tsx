@@ -3,8 +3,13 @@ import {LuSearch} from "react-icons/lu";
 import {useColorMode, useColorModeValue} from "@/components/ui/color-mode.tsx";
 import reactLogo from '../assets/react.svg';
 
+interface NavBarProps {
+    searchValue: string;
+    onChangeSearchBar: (searchParam: string) => void
+}
 
-const NavBar = () => {
+
+const NavBar = ({ searchValue, onChangeSearchBar }: NavBarProps) => {
     const { toggleColorMode, colorMode, setColorMode } = useColorMode();
     const placeholderColor = useColorModeValue('cyan.600', 'cyan.500');
 
@@ -41,6 +46,8 @@ const NavBar = () => {
                         color: 'inherit'
                     }}
                     variant={'subtle'}
+                    value={searchValue}
+                    onChange={(event) => onChangeSearchBar(event.target.value) }
                 />
             </InputGroup>
             <Switch.Root
