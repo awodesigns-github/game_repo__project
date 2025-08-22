@@ -116,6 +116,7 @@ const App = () => {
                         />
                     </GridItem>
 
+                    {/* Drawer starts here */}
                     <Drawer.Root open={open} placement={'start'} onOpenChange={handleDrawerToggle}>
                         <Drawer.Backdrop/>
                         <Drawer.Positioner>
