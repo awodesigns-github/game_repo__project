@@ -39,11 +39,17 @@ const App = () => {
         <Provider>
             <Container
                 maxW={'container.xl'}
+                height={{
+                    lg: '100vh'
+                }}
+                overflow={{
+                    lg: 'hidden'
+                }}
                 p={{ base: 4, md: 8 }}
             >
                 <Grid
                     gap={4}
-                    minH={'100vh'}
+                    overflow={'clip'}
                     templateAreas={{
                         base: `
                             "nav"
