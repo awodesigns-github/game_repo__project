@@ -39,11 +39,19 @@ const App = () => {
         <Provider>
             <Container
                 maxW={'container.xl'}
+                height={{
+                    base: '100vh',
+                    lg: '100vh'
+                }}
+                overflow={{
+                    base: 'hidden',
+                    lg: 'hidden'
+                }}
                 p={{ base: 4, md: 8 }}
             >
                 <Grid
                     gap={4}
-                    minH={'100vh'}
+                    overflow={'clip'}
                     templateAreas={{
                         base: `
                             "nav"
@@ -72,6 +80,7 @@ const App = () => {
                     >
                         <NavBar searchValue={searchParam} onChangeSearchBar={handleSearchBarChange}/>
                         <IconButton
+                            size={'lg'}
                             variant={'surface'}
                             display={{ base: 'flex', md: 'none' }}
                             mt={4}

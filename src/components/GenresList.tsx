@@ -28,7 +28,17 @@ const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
                 </Box>
             }
             { error && <h2 color={'red'}>{error.message}</h2> }
-            <Stack>
+            <Stack
+                height={{
+                    base: '100%',
+                    md: 800,
+                    lg: 900,
+                    xl: 'calc(100vh - 8%)'
+                }}
+                overflowY={{
+                    base: 'auto'
+                }}
+            >
                 <For each={genres?.results}
                      fallback={
                          <VStack textAlign="center" fontWeight="medium">

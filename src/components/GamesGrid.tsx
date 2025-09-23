@@ -70,14 +70,27 @@ const GamesGrid = ({ genre, selectValue, searchParam }: GamesGridProps) => {
                             sm: 2,
                             lg: 3
                         }}
+                        paddingBottom={{
+                            lg: 40
+                        }}
                         gap={4}
                         my={4}
+                        mb={10}
+                        height={{
+                            base: 600,
+                            md: 900,
+                            lg: 700,
+                            xl: 'calc(100vh - 12%)'
+                        }}
+                        overflowY={'auto'}
+                        overflowX={'hidden'}
                     >
                         {
                             finalList()?.map((game) => (
                                 <GameCard game={game} key={game.id} />
                             ))
                         }
+                        <Box height={'100px'}></Box>
                     </SimpleGrid>
             }
         </>
