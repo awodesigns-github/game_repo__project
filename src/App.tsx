@@ -40,9 +40,11 @@ const App = () => {
             <Container
                 maxW={'container.xl'}
                 height={{
+                    base: '100vh',
                     lg: '100vh'
                 }}
                 overflow={{
+                    base: 'hidden',
                     lg: 'hidden'
                 }}
                 p={{ base: 4, md: 8 }}
@@ -78,6 +80,7 @@ const App = () => {
                     >
                         <NavBar searchValue={searchParam} onChangeSearchBar={handleSearchBarChange}/>
                         <IconButton
+                            size={'lg'}
                             variant={'surface'}
                             display={{ base: 'flex', md: 'none' }}
                             mt={4}

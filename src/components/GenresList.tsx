@@ -30,7 +30,10 @@ const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
             { error && <h2 color={'red'}>{error.message}</h2> }
             <Stack
                 height={{
-                    lg: 900
+                    base: '100%',
+                    md: 800,
+                    lg: 900,
+                    xl: 'calc(100vh - 8%)'
                 }}
                 overflowY={{
                     base: 'auto'

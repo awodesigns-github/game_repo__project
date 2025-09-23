@@ -76,7 +76,12 @@ const GamesGrid = ({ genre, selectValue, searchParam }: GamesGridProps) => {
                         gap={4}
                         my={4}
                         mb={10}
-                        height={700}
+                        height={{
+                            base: 600,
+                            md: 900,
+                            lg: 700,
+                            xl: 'calc(100vh - 12%)'
+                        }}
                         overflowY={'auto'}
                         overflowX={'hidden'}
                     >
