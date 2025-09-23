@@ -2,13 +2,13 @@ import {Avatar, Box, For, HStack, LinkBox, Spinner, Stack, Text, VStack} from "@
 import {useColorModeValue} from "@/components/ui/color-mode.tsx";
 import useGenres from "@/components/hooks/useGenres.ts";
 import {LuBox} from "react-icons/lu";
+import {useContext} from "react";
+import {GenreContext} from "@/context/genreContext.ts";
 
-interface GenresListProps {
-    onGenreClick: (genreSlug: string, genreTitle: string) => void;
-    activeLink: string;
-}
 
-const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
+const GenresList = () => {
+    const { genre: globalGenre, updateGenre } = useContext(GenreContext);
+
     const textColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
     const { data: genres, error, isLoading } = useGenres();
 
@@ -52,7 +52,8 @@ const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
                             <LinkBox
                                 key={genre.id}
                                 onClick={() => {
-                                    onGenreClick(genre.slug, genre.name)
+                                    // onGenreClick(genre.slug, genre.name)
+                                    updateGenre(genre.slug)
                                 }}
                                 _hover={{
                                     background: 'blackAlpha.200'
@@ -72,7 +73,7 @@ const GenresList = ({ onGenreClick, activeLink }: GenresListProps) => {
                                     </Avatar.Root>
                                     <Text
                                         textStyle={'xl'}
-                                        fontWeight={ (activeLink === genre.slug) ? 'semibold' : 'normal' }
+                                        fontWeight={ (globalGenre === genre.slug) ? 'semibold' : 'normal' }
                                         color={textColor}
                                     >
                                         {genre.name}
