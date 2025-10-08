@@ -2,6 +2,7 @@ import {Box, Heading, NativeSelect} from "@chakra-ui/react";
 import type {ParentPlatform} from "@/services/parentPlatformService.ts";
 import {useContext} from "react";
 import {GenreContext} from "@/context/genreContext.ts";
+import titleCleaner from "@/utils/titleCleaner.ts";
 
 interface GamesFilterProps {
     platformsList: ParentPlatform[];
@@ -15,7 +16,7 @@ const GamesFilter = ({ platformsList, error, selectValue, onSelectValue}: GamesF
 
     return (
         <>
-            <Heading size={{ base: '3xl', md: '4xl', lg: '5xl' }}>{`${selectValue} ${genre}`} Games</Heading>
+            <Heading size={{ base: '3xl', md: '4xl', lg: '5xl' }}>{`${selectValue} ${titleCleaner(genre)}`} Games</Heading>
             <Box my={5}>
                 <NativeSelect.Root
                     variant={'subtle'}
